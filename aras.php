@@ -52,8 +52,9 @@ function getOptimalValues($matrix) {
 }
 
 function getUtilityRate($optimalValues) {
+  $base = max($optimalValues);
   for ($i = 0; $i < count($optimalValues); $i++) {
-    $optimalValues[$i] = $optimalValues[0];
+    $optimalValues[$i] /= $base;
   }
   
   return $optimalValues;
@@ -74,7 +75,7 @@ function printMatrix($matrix) {
 }
 
 // define data here
-$matrix = array(array(1,2,3),array(1,2,3),array(1,2,3)); // <-- only for example
+$matrix = array(array(4,2,3),array(3,1,2),array(1,4,2)); // <-- only for example
 echo '1. initial matrix:'.PHP_EOL;
 printMatrix($matrix);
 
@@ -84,7 +85,7 @@ echo '2. normalized matrix:'.PHP_EOL;
 printMatrix($normalizedMatrix);
 
 // Langkah 3 mengaplikasikan bobot
-$weights = array(0.03, 0.02, 0.1); // <-- only for example
+$weights = array(0.3, 0.3, 0.4); // <-- only for example
 echo '3. weighted matrix:'.PHP_EOL;
 $weightedMatrix = applyWeights($normalizedMatrix, $weights);
 printMatrix($weightedMatrix);
@@ -97,5 +98,10 @@ print_r($optimalValues);
 // Langkah 5 menentukan tingkat utilitas Ki
 $utilityRate = getUtilityRate($optimalValues);
 echo '5. utility rate:'.PHP_EOL;
+print_r($utilityRate);
+
+// Langkah 5b tingkat utilitas Ki diurutkan secara descending
+echo '5b. utility rate (sorted):'.PHP_EOL;
+rsort($utilityRate);
 print_r($utilityRate);
 ?>
