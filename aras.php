@@ -23,7 +23,7 @@ function applyWeights($matrix, $weights) {
   $colLen = count($matrix[0]);
   
   if ($colLen != count($weights)) {
-    echo "num of weights must equal with the num of columns";
+    throw new Exception("num of weights must equal to the num of columns");
   }
   
   for ($i = 0; $i < $rowLen; $i++) {
@@ -76,6 +76,8 @@ function printMatrix($matrix) {
 
 // define data here
 $matrix = array(array(4,2,3),array(3,1,2),array(1,4,2)); // <-- only for example
+$weights = array(0.3, 0.3, 0.4); // <-- only for example
+
 echo '1. initial matrix:'.PHP_EOL;
 printMatrix($matrix);
 
@@ -85,7 +87,6 @@ echo '2. normalized matrix:'.PHP_EOL;
 printMatrix($normalizedMatrix);
 
 // Langkah 3 mengaplikasikan bobot
-$weights = array(0.3, 0.3, 0.4); // <-- only for example
 echo '3. weighted matrix:'.PHP_EOL;
 $weightedMatrix = applyWeights($normalizedMatrix, $weights);
 printMatrix($weightedMatrix);
